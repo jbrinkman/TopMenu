@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <!-- This is a basic template using the token parser -->
+  <!--<template>ULTokens.txt</template>-->
+
+  <!-- This is a more advanced menu template using the Razer parser -->
+  <!-- This requires the site to run in -->
+  <template>MegaULRazor.cshtml</template>
+  <stylesheets>
+    <stylesheet>megamenu.css</stylesheet>
+  </stylesheets>
+</manifest>

@@ -1,0 +1,51 @@
+﻿@using DotNetNuke.Web.DDRMenu;
+@{ var root = Model.Source.root; }
+
+@helper RenderNodes(IList<MenuNode> nodes)
+{
+    if (nodes.Count > 0)
+    {
+         <ul id="nav">
+            @foreach (var node in nodes)
+            {
+                var classString = GetClasses(node);
+
+                <li @classString>
+                    @RenderItem(node)
+                    @RenderNodes(node.Children)
+                </li>
+            }
+        </ul>
+    }
+}
+
+@helper RenderItem(MenuNode node)
+{
+    if (node.Enabled)
+    {
+    <a href="@node.Url">@node.Text</a>
+    }
+    else
+    {
+    @node.Text
+    }
+}
+
+@functions{
+    public HtmlString GetClasses(MenuNode node)
+    {
+        List<string> cssClasses = GetClassList(node);
+        return new HtmlString((cssClasses.Count == 0) ?
+            String.Empty :
+            ("class=\"" + String.Join(" ", cssClasses.ToArray()) + "\""));
+    }
+    
+    public List<string> GetClassList(MenuNode node)
+    {
+        var classList = new List<string>();
+        if (node.Selected) { classList.Add("selected"); }
+        //if (isRoot) { classList.Add("root"); }
+        return classList;
+    }
+}
+@RenderNodes(root.Children)
